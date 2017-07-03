@@ -9,9 +9,9 @@ import { Beer } from '../../models/beer';
 })
 export class BeersListComponent implements OnInit {
 
-  private beers: Array<Beer>;
-  private errorMessage: string;
-  private selectedBeer: Beer
+  beers: Array<Beer>;
+  errorMessage: string;
+  selectedBeer: Beer
 
   constructor(private beerService: BeerService) { }
 
