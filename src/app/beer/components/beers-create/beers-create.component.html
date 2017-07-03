@@ -1,0 +1,39 @@
+<div materialize class="container">
+  <h3>New Beer</h3>
+  <div class="card-panel row">
+    <form materialize class="col s12"  #f="ngForm" (ngSubmit)="save()">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="beer_name" type="text" class="validate" materialize="characterCounter" 
+            [(ngModel)]="beer.name" name="name" #beerName="ngModel">
+          <label for="beer_name" data-error="wrong" data-success="right">Beer Name</label>          
+        </div>
+        <div class="input-field col s6">
+          <input materialize="characterCounter" id="beer_brand" type="text" class="validate" [(ngModel)]="beer.brand" name="brand" required>
+          <label for="beer_brand" data-error="wrong" data-success="right">Beer Brand</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s9">
+          <input id="beer_nationality" type="text" class="validate" [(ngModel)]="beer.nationality" name="nationality" required>
+          <label for="beer_name" data-error="wrong" data-success="right">Nationality</label>
+        </div>
+        <div class="input-field col s3">
+          <input id="beer_alcohol_percentage" type="number" class="validate" min="1"
+                [(ngModel)]="beer.alcoholPercentage" name="alcoholPercentage"
+                required>
+          <label for="beer_alcohol_percentage" data-error="wrong" data-success="right">Alcohol percentage</label>
+        </div>
+      </div>  
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="button" name="back" (click)="returnList()">
+          Return to list
+          <i class="material-icons right">keyboard_return</i>          
+        </button>
+        <button [disabled]="!f.valid" class="btn waves-effect waves-light" type="submit" name="create">Create
+          <i class="material-icons right">send</i>
+        </button>
+      </div>        
+    </form>
+  </div>
+</div>

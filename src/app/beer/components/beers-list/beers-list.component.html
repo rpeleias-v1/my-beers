@@ -1,0 +1,33 @@
+<div materialize class="container">
+  <h3>Beers List</h3>
+  <div class="row">    
+    <div class="card-panel">
+      <table class="responsive-table highlight">
+        <thead>
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Nationality</th>
+              <th>Alcohol Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let beer of beers" (click)="select(beer)">
+            <td>{{beer.id}}</td>
+            <td>{{beer.name}}</td>
+            <td>{{beer.brand}}</td>
+            <td>{{beer.nationality}}</td>
+            <td>{{beer.alcoholPercentage}}</td>
+          </tr>              
+        </tbody>
+      </table>
+    </div>    
+  </div>
+  <div class="row" *ngIf="selectedBeer">    
+    <button class="btn waves-effect waves-light" type="button" name="remove" (click)="delete()">
+      Delete
+      <i class="material-icons right">send</i>
+    </button>
+  </div>                  
+</div>
