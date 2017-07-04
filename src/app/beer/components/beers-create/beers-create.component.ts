@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class BeersCreateComponent implements OnInit {
 
-  private beer: Beer;
+  beer: Beer;
 
   constructor(private beerService: BeerService, private router: Router) { }
 
@@ -20,8 +20,7 @@ export class BeersCreateComponent implements OnInit {
 
   save() {
     this.beerService.post(this.beer)
-      .then(response => {
-        console.log(response);
+      .then(response => {        
         this.router.navigate(['/beers']);
       });
   }

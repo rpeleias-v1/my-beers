@@ -29,21 +29,16 @@ describe('BeersListComponent', () => {
     beerService = fixture.debugElement.injector.get(BeerService);
     nativeElement = fixture.nativeElement;    
     getAllSpy = spyOn(beerService, 'getAll').and.returnValue(Promise.resolve(mockBeers))    
-  });
-
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should display page title', () => {
     fixture.detectChanges();
+  });
+
+  it('should display page title', () => {    
     let h3 = fixture.debugElement.query(By.css('h3'));
     expect(h3.nativeElement.innerHTML).toEqual("Beers List");
-    expect(getAllSpy.calls.any()).toBe(true, 'getAll called');
+    expect(getAllSpy.calls.any()).toBe(true, 'getAll called');    
   });
 
-  it('should display beers in a table', async(done: any) => {   
-    fixture.detectChanges();
+  it('should display beers in a table', async(done: any) => {       
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       let trs = nativeElement.querySelectorAll('tbody tr');
@@ -54,8 +49,7 @@ describe('BeersListComponent', () => {
     });    
   });
 
-  it('should select a beer', async(done: any) => {   
-    fixture.detectChanges();
+  it('should select a beer', async(done: any) => {       
     fixture.whenStable().then(() => {
       fixture.detectChanges();      
       expect(getAllSpy.calls.any()).toBe(true, 'getAll called');  
@@ -72,8 +66,7 @@ describe('BeersListComponent', () => {
     });    
   });
 
-  it('should display delete button', async(done: any) => {   
-    fixture.detectChanges();
+  it('should display delete button', async(done: any) => {       
     fixture.whenStable().then(() => {
       fixture.detectChanges();      
       expect(getAllSpy.calls.any()).toBe(true, 'getAll called');  
