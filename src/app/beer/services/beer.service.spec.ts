@@ -5,7 +5,7 @@ import {
 } from '@angular/http/testing';
 
 import {
-  HttpModule, Http, XHRBackend, Response, ResponseOptions
+  HttpModule, Http, XHRBackend, Response, ResponseOptions, BaseRequestOptions, RequestOptions
 } from '@angular/http';
 
 import { BeerService } from './beer.service';
@@ -13,10 +13,19 @@ import { BeerService } from './beer.service';
 describe('BeerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule],
-      providers: [
+      imports: [HttpModule],
+      providers: [             
         BeerService,
-        { provide: XHRBackend, useClass: MockBackend}]
+        MockBackend, 
+        BaseRequestOptions,
+        {
+          provide: Http,
+          useFactory: (mockBackend: MockBackend, defaultOptions: BaseRequestOptions) => {
+            return new Http(mockBackend, defaultOptions);
+          },
+          deps: [MockBackend, BaseRequestOptions]
+        },        
+      ]
     });
   });
 
@@ -32,16 +41,24 @@ describe('BeerService', () => {
 
   describe('when get all Beers', () => {
     let backend: MockBackend;
-    let service: BeerService;
-    let fakeBeers = [];    
-    let response: Response;
+    let service: BeerService;    
 
-    beforeEach(inject([Http, XHRBackend], (http: Http, be: MockBackend) => {
-      backend = be;
-      service = new BeerService(http);
-      fakeBeers = [];
-      let options = new ResponseOptions({status: 200, body: {data: fakeBeers}});
-      response = new Response(options);
-    }))
+    beforeEach(() => {
+      backend = TestBed.get(MockBackend);
+      service = TestBed.get(BeerService);     
+    });
+
+    it('should cal getAll() to get all Beers', (done) => {
+      let mockBeers = [];
+      backend.connections.subscribe((connection: MockConnection) => {        
+        let options = new ResponseOptions({ body:{ data: mockBeers }});
+        connection.mockRespond(new Response(options));        
+      });
+
+      service.getAll().then((response) => {
+        expect(response).toBe(mockBeers);
+        done();
+      })
+    })
   })
 });

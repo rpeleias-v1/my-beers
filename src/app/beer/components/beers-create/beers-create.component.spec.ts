@@ -83,7 +83,7 @@ describe('BeersCreateComponent', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       let returnButton = fixture.debugElement.queryAll(By.css('button'))[0].nativeElement;    
-      let navigateSpy = spyOn((<any>component).router, 'navigate');
+      let navigateSpy = spyOn(router, 'navigate');
       returnButton.click();
       expect(navigateSpy).toHaveBeenCalledWith(['/beers']);
     });    
